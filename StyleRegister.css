@@ -57,7 +57,7 @@ button {
     padding: 10px;
     border: none;
     border-radius: 6px;
-    background-color: #6ddcfb;
+    background-color: #0079d3;
     color: white;
     font-size: 15px;
     cursor: pointer;
@@ -68,7 +68,7 @@ button {
 
 
 button:hover {
-    background-color: #458ca0;
+    background-color: #005999;
 }
 
 .erro {

@@ -1,24 +1,30 @@
 <?php
-$invisivel_prelogin = "";
-$invisivel_poslogin = "style='display = none'";
+session_start();
 
-$USUARIO = null;
+// Simulação de login
+$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
+$invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
+$invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>OmegaBlog</title>
-        <link rel="stylesheet" href="Style.css">
-    </head>
-    <body>
-        <header class="Top">
-            <h2>OmegaBlog</h2>
-            <div class="Perfil" $invisivel_prelogin>
-                <a rpl class="Login-Button" href="login.php">Login</a>
-                <h2 class="Nome" $invisivel_poslogin><?php $USUARIO ?></h2>
+<head>
+    <meta charset="UTF-8">
+    <title>OmegaBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="Top">
+        <div class="Container">
+            <h2 class="title">OmegaBlog</h2>
+            <div class="Perfil">
+                <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
+                <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
+                    <?php echo htmlspecialchars($USUARIO); ?>
+                </h2>
             </div>
         </div>
-    </body>
+    </header>
+</body>
 </html>
