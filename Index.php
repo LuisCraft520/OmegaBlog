@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-// Simulação de login
-$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
+$USUARIO = isset($_SESSION['usuario']) ? null : $_SESSION['usuario'];
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';

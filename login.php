@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 
 //metodo de abrir o json
 $ARQUIVO_JSON = 'json/usuarios.json';
@@ -17,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($usuarios as $usuario) {
         if ($usuario["nome"] == $nome) {
             if ($usuario["senha"] == $senha) {
-                $mensagem = "Bem vindo " . htmlspecialchars($nome) . "!";
-                $invisivel_erro = '';
-                break;
+                $_SESSION['usuario'] = $nome;
+                header("Location: Index.php");
+                exit;
             } else {
                 $invisivel_erro = '';
                 $mensagem = "senha incorreta";
