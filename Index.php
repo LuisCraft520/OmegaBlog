@@ -25,15 +25,16 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
         </div>
     </div>
 </header>
-<div class="Body">
-    <div class="left"></div>
-    <div class="middle">
-        <br>
-        <h1>Bem vindo ao OmegaOn</h1>
-        <h3>O forum oficial da turma omega</h3>
-        <br>
-    </div>
-
+<div class="StartBlog">
+    <br>
+    <h1>Bem vindo ao OmegaOn</h1>
+    <h3>O forum oficial da turma omega</h3>
+    <br>
+    <h4 <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Postar no forun </h4>
+    <a class="Post-Button" href="post.php" <?php echo $invisivel_poslogin; ?>>Postar</a>
+</div>
+<div class="content">
+    <!--futuro local dos posts-->
 </div>
 </body>
 </html>

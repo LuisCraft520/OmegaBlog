@@ -3,49 +3,106 @@ body {
     font-family: Arial, sans-serif;
     background-color: #d5d5d5;
 }
-/*barra superior*/
+
+/* Barra superior */
 .Top {
     width: 100%;
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px 0px;
+    padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+}
 
-    .Container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    };
-    h2.title {
-        margin: 0;
-        font-size: 24px;
-        color: #6b03a7;
-    }
-    .Perfil {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .Login-Button {
-        padding: 8px 16px;
-        background-color: #0079d3;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-    }
-    .Login-Button:hover {
-        background-color: #005999;
-    }
-    .Nome {
-        font-size: 18px;
-        color: #333;
-        margin: 0;
-    }
+.Top .Container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.Top h2.title {
+    margin: 0;
+    font-size: 24px;
+    color: #6b03a7;
+}
+
+.Top .Perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.Top .Login-Button {
+    padding: 8px 16px;
+    background-color: #0079d3;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.Top .Login-Button:hover {
+    background-color: #005999;
+}
+
+.Top .Nome {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* Conteúdo principal */
+.StartBlog {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.StartBlog h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+.StartBlog h3 {
+    font-size: 20px;
+    color: #666;
+}
+
+.StartBlog h4 {
+    font-size: 16px;
+    color: #b00;
+}
+
+.StartBlog .Post-Button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6b03a7;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.StartBlog .Post-Button:hover {
+    background-color: #530280;
+}
+
+/* Área futura dos posts */
+.content {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 20px;
 }
