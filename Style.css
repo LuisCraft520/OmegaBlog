@@ -23,10 +23,11 @@ body {
     align-items: center;
 }
 
-.Top h2.title {
+.Top a.title {
     margin: 0;
     font-size: 24px;
     color: #6b03a7;
+    text-decoration: none;
 }
 
 .Top .Perfil {

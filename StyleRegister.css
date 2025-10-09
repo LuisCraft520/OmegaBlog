@@ -1,27 +1,74 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #d5d5d5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
     padding: 0;
-    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Barra superior */
+.Top {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.Top .Container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.Top .title {
+    margin: 0;
+    font-size: 24px;
+    color: #6b03a7;
+    text-decoration: none;
+}
+
+.Top .Perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.Top .Login-Button {
+    padding: 8px 16px;
+    background-color: #0079d3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.Top .Login-Button:hover {
+    background-color: #005999;
+}
+
+.Top .Nome {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* Formulário */
 .form {
     width: 320px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     padding: 30px 40px;
     box-sizing: border-box;
-    margin-top: 10px;
-    
+    margin: 50px auto; /* centraliza horizontalmente e dá espaçamento do topo */
 }
-
 
 h2 {
     text-align: center;
@@ -29,20 +76,14 @@ h2 {
     color: #333;
 }
 
-h3 {
-    margin: 10px 0 5px 0;
+h3, h4 {
+    margin: 10px 0 5px;
     font-weight: normal;
     color: #555;
 }
 
-h4 {
-    margin: 10px 0 5px 0;
-    font-weight: normal;
-    color: #555;
-
-}
-
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -51,7 +92,6 @@ input[type="text"] {
     width: 100%;
     box-sizing: border-box;
 }
-
 
 button {
     padding: 10px;
@@ -63,9 +103,8 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
-
 
 button:hover {
     background-color: #005999;
@@ -75,6 +114,5 @@ button:hover {
     text-align: center;
     font-weight: bold;
     color: #ff7070;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin: 0;
 }

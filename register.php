@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null ;
+
+$invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
+$invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
+
 //metodo de abrir json
 $ARQUIVO_JSON = 'json/usuarios.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
@@ -6,6 +13,7 @@ $usuarios = json_decode($json_data, true);
 if ($usuarios === null) {
     $usuarios  = "";
 }
+
 
 $mensagem = "";
 $invisivel_erro = 'style="display: none"';
@@ -49,6 +57,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <link rel="stylesheet" href="StyleRegister.css">
     </head>
     <body>
+    <header class="Top">
+        <div class="Container">
+            <a class="title" href="Index.php"><b>OmegaOn</b></a>
+            <div class="Perfil">
+                <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
+                <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
+                    <?php echo htmlspecialchars($USUARIO); ?>
+                </h2>
+            </div>
+        </div>
+    </header>
         <div class="form">
             <form method="post">
                 <h2>Registrar</h2>
