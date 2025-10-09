@@ -98,6 +98,64 @@ body {
     background-color: #530280;
 }
 
+/* Area de Login */
+.form {
+    width: 320px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 30px 40px;
+    box-sizing: border-box;
+    margin: 50px auto; 
+}
+
+.form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form h3, h4 {
+    margin: 10px 0 5px;
+    font-weight: normal;
+    color: #555;
+}
+
+.form input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form button {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0079d3;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.form button:hover {
+    background-color: #005999;
+}
+
+.form .erro {
+    text-align: center;
+    font-weight: bold;
+    color: #ff7070;
+    margin: 0;
+}
+
 /* Área futura dos posts */
 .content {
     max-width: 800px;

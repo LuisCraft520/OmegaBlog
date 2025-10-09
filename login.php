@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
-        <link rel="stylesheet" href="StyleRegister.css">
+        <link rel="stylesheet" href="Style.css">
     </head>
     <body>
     <header class="Top">
