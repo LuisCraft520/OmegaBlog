@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Registrar</title>
+        <title>OmegaOn-Registrar</title>
         <link rel="stylesheet" href="Style.css">
     </head>
     <body>
@@ -68,23 +68,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </header>
-        <div class="form">
-            <form method="post">
-                <h2>Registrar</h2>
-                <h3>Digite seu nome</h3>
-                <input type="text" name="nome" autocomplete="off" required>
-                <h3>Digite sua senha</h3>
-                <input type="text" name="senha" autocomplete="off" required>
-                <h3>Confirme sua senha</h3>
-                <input type="text" name="senha2" autocomplete="off" required >
-                <br>
-                <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>
-                <img src="img/CAPTCHA.png" alt="Captcha" width="240" height="70">
-                <button type="submit">Registrar</button>
-            </form>
+    <div class="form">
+        <form method="post">
+            <h2>Registrar</h2>
+            <h3>Digite seu nome</h3>
+            <input type="text" name="nome" autocomplete="off" required>
+            <h3>Digite sua senha</h3>
+            <input type="text" name="senha" autocomplete="off" required>
+            <h3>Confirme sua senha</h3>
+            <input type="text" name="senha2" autocomplete="off" required >
             <br>
-            <h4>Ja possui conta?<a href="login.php">Logar</a></h4>
-            
-        </div>
+            <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>
+            <img src="img/CAPTCHA.png" alt="Captcha" width="240" height="70">
+            <button type="submit">Registrar</button>
+        </form>
+        <br>
+        <h4>Ja possui conta?<a href="login.php">Logar</a></h4>
+        
+    </div>
     </body>
 </html>

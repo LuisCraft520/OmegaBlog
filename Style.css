@@ -156,6 +156,20 @@ input[type="password"] {
     margin: 0;
 }
 
+/* Formulario de post*/
+.post{
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px; 
+}
+
+
+
 /* Área futura dos posts */
 .content {
     max-width: 800px;

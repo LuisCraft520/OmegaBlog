@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>OmegaOn-Login</title>
         <link rel="stylesheet" href="Style.css">
     </head>
     <body>
