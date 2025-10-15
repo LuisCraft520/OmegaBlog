@@ -59,13 +59,13 @@ body {
 /* Conteúdo principal */
 .StartBlog {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 20px auto;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 20px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .StartBlog h1 {
@@ -217,9 +217,55 @@ input[type="password"] {
 /* Área futura dos posts */
 .content {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 20px auto;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 20px;
+}
+
+.content .posts {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.content .posts:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.content .usuario_post {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.content .titulo_post {
+    font-size: 20px;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.content .conteudo_post {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6em;
+    max-height: 9.6em; /* 6 linhas * 1.6em */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* limita a 6 linhas */
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.content hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
 }

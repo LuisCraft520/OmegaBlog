@@ -58,10 +58,10 @@ if ($posts === null) {
             $diferenca = $agora->diff($data_post);
 
             if ($diferenca->days >= 1) {
-                $texto_horario = "Ha {$diferenca->days} dias.";
+                $texto_horario = "Há {$diferenca->days} dias.";
             } else {
                 $horas = ($diferenca->h) + ($diferenca->i / 60);
-                $texto_horario = "Ha " . round($horas, 1) . " horas.";
+                $texto_horario = "Há " . round($horas) . " h.";
             }
 
             echo '<div class="posts">';
