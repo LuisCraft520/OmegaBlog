@@ -5,6 +5,14 @@ $USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null ;
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
+
+$ARQUIVO_JSON = 'json/posts.json';
+$json_data = file_get_contents($ARQUIVO_JSON);
+$posts = json_decode($json_data, true);
+if ($posts === null) {
+    $posts  = "";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -34,7 +42,17 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
     <a class="Post-Button" href="post.php" <?php echo $invisivel_poslogin; ?>>Postar</a>
 </div>
 <div class="content">
-    <!--futuro local dos posts-->
+    <?php
+        foreach($posts as $post) {
+            echo '<div class="posts">';
+            echo '<h3>' . $post['titulo'] . '</h3>';
+            echo '<h4>' . $post['conteudo'] . '</h4>'; 
+
+
+
+            echo '</div>';
+        }
+    ?>
 </div>
 </body>
 </html>

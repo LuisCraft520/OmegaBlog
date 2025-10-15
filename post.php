@@ -19,6 +19,8 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
+    $conteudo_formatado = wordwrap($conteudo, 64, "\n", false);
+
     if (strlen($titulo) > 100) {
         //erro
     } elseif ($USUARIO === null) {
@@ -29,11 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,
+            "data" => date('Y-m-d H:i:s'),
             "titulo" => $titulo,
-            "conteudo" => $conteudo,
+            "conteudo" => $conteudo_formatado,
+            "comentarios" => [],
         ];
         array_push($posts, $new_post);
-        $json_string = json_encode($posts, JSON_PRETTY_PRINT);
+        $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         file_put_contents($ARQUIVO_JSON, $json_string);
     }
@@ -64,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post">
             <h2>Postar</h2>
             <br>
-            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" maxlength="100" required>
+            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" maxlength="64" required>
             <br><br><br>
             <textarea type="text" name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
             <br><br><br>
