@@ -157,15 +157,59 @@ input[type="password"] {
 }
 
 /* Formulario de post*/
-.post{
-    max-width: 800px;
+.post {
+    background-color: #fff;
+    width: 90%;
+    max-width: 600px;
     margin: 40px auto;
-    background: white;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-    text-align: center;
-    margin-top: 40px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.post h2 {
+    margin-bottom: 20px;
+    color: #24292e;
+}
+
+.post h3 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.post input[type="text"],
+.post textarea {
+    width: 95%;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 22px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.post textarea {
+    border-radius: 12px;
+    min-height: 120px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
+
+.post button {
+    background-color: #6b03a7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.post button:hover {
+    background-color: #530280;
 }
 
 

@@ -2,9 +2,44 @@
 session_start();
 
 $USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null ;
+if ($USUARIO === null) {
+    header('Location: login.php');
+}
+
+$ARQUIVO_JSON = 'json/posts.json';
+$json_data = file_get_contents($ARQUIVO_JSON);
+$posts = json_decode($json_data, true);
+if ($posts === null) {
+    $posts  = "";
+}
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $titulo = $_POST["titulo"] ?? "";
+    $conteudo = $_POST["content"] ?? "";
+    if (strlen($titulo) > 100) {
+        //erro
+    } elseif ($USUARIO === null) {
+        //erro sem user
+    } else {
+        $last_id = max($posts) ?? 0;
+        $new_id = $last_id["id"] + 1 ?? 0;
+        $new_post = [
+            "id" => $new_id,
+            "usuario" => $USUARIO,
+            "titulo" => $titulo,
+            "conteudo" => $conteudo,
+        ];
+        array_push($posts, $new_post);
+        $json_string = json_encode($posts, JSON_PRETTY_PRINT);
+
+        file_put_contents($ARQUIVO_JSON, $json_string);
+    }
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,7 +55,7 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
             <div class="Perfil">
                 <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
                 <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
-                    <?php echo htmlspecialchars($USUARIO); ?>
+                    <?php echo htmlspecialchars(string: $USUARIO); ?>
                 </h2>
             </div>
         </div>
@@ -29,10 +64,10 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
         <form method="post">
             <h2>Postar</h2>
             <br>
-            <h3>Titulo</h3>
-            <input type="text" name="titulo" autocomplete="off" required>
-            <h3>Texto do post(opicional)</h3>
-            <input type="text" name="text" autocomplete="off" required>
+            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" maxlength="100" required>
+            <br><br><br>
+            <textarea type="text" name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
+            <br><br><br>
             <button type="submit">Postar</button>
         </form>
     </div>
