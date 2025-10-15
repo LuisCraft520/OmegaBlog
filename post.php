@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,
-            "data" => date('Y-m-d H:i:s'),
+            "data" => new DateTime(),
             "titulo" => $titulo,
             "conteudo" => $conteudo_formatado,
             "comentarios" => [],
@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </header>
-    <div class="post">
-        <form method="post">
+    <div class="post_creator">
+        <form method="post_creator">
             <h2>Postar</h2>
             <br>
             <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" maxlength="64" required>
