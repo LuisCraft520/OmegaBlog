@@ -63,7 +63,7 @@ if ($posts === null) {
                 $horas = ($diferenca->h) + ($diferenca->i / 60);
                 $texto_horario = "Há " . round($horas) . " h.";
             }
-
+            echo '<a href="postview.php?id=' . $post['id'] . '" class="post_link">';
             echo '<div class="posts">';
             echo '<h4 class="usuario_post"><b>' . $post['usuario'] . ' •  </b>' . $texto_horario . '</h4>';
             echo '<h3 class="titulo_post">' . $post['titulo'] . '</h3>';
@@ -81,9 +81,8 @@ if ($posts === null) {
 
             echo '<h5 class="conteudo_post">' . $texto_reduzido . '</h5>'; 
 
-
-
             echo '</div>';
+            echo '</a>';
             echo '<hr>';
         }
     ?>

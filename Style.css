@@ -233,6 +233,10 @@ input[type="password"] {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.content .post_link {
+    text-decoration: none;
+}
+
 .content .posts:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -260,6 +264,7 @@ input[type="password"] {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 6; /* limita a 6 linhas */
+    line-clamp: 6; /* standard property for compatibility */
     -webkit-box-orient: vertical;
     white-space: normal;
 }
