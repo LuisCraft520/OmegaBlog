@@ -29,8 +29,10 @@ if (!$post_encontrado) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comentario = $_POST["comentario"] ?? "";
     $comentario_formatado = wordwrap($comentario, 64, "\n", false);
-    if ($USUARIO === null) { /*erro sem user*/
+    if ($USUARIO === null) {
+         /*erro sem user*/
     } else {
+        $new_array = [];
         foreach ($posts as $post) {
             if ($post['id'] === $id) {
                 if (!empty($post['comentarios'])) {
@@ -39,17 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 $new_id = ($last_id ?? 0) + 1;
                 $new_comment = [
-                "id" => $new_id, 
-                "usuario" => $USUARIO, 
-                "data" => new DateTime(), 
-                "comentario" => $comentario_formatado
+                    "id" => $new_id, 
+                    "usuario" => $USUARIO, 
+                    "data" => (new DateTime())->format('Y-m-d H:i:s'), 
+                    "comentario" => $comentario_formatado
                 ];
                 array_push($post['comentarios'], $new_comment);
-                $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-                file_put_contents($ARQUIVO_JSON, $json_string);
-                break;
             }
+            array_push($new_array, $post);
+
+
+
         }
+        $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        file_put_contents($ARQUIVO_JSON, $json_string);
     }
 } ?>
 <!DOCTYPE html>
