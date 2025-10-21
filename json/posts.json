@@ -5,7 +5,50 @@
         "data": "2025-10-15 12:16:00",
         "titulo": "primeiro post",
         "conteudo": "aaa",
-        "comentarios": []
+        "comentarios": [
+            {
+                "id": 1,
+                "usuario": "mariane",
+                "data": "2025-10-21 20:52:45",
+                "comentario": "a"
+            },
+            {
+                "id": 2,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:13:44",
+                "comentario": ""
+            },
+            {
+                "id": 3,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:15:33",
+                "comentario": ""
+            },
+            {
+                "id": 4,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:17:38",
+                "comentario": ""
+            },
+            {
+                "id": 5,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:18:19",
+                "comentario": ""
+            },
+            {
+                "id": 6,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:24:13",
+                "comentario": ""
+            },
+            {
+                "id": 7,
+                "usuario": "mariane",
+                "data": "2025-10-21 23:29:16",
+                "comentario": ""
+            }
+        ]
     },
     {
         "id": 2,

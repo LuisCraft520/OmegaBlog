@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,
-            "data" => (new DateTime())->format(DateTime::ATOM),
+            "data" => (new DateTime("now",null))->format(DateTime::ATOM),
             "titulo" => $titulo,
             "conteudo" => $conteudo_formatado,
             "comentarios" => [],
