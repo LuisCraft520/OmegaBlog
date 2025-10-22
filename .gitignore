@@ -1,0 +1,10 @@
+# Ignorar a pasta de workflows do GitHub
+.github/
+
+# Ignorar a pasta JSON com dados locais
+json/
+
+# Ignorar arquivos temporários comuns
+*.log
+*.tmp
+.DS_Store
