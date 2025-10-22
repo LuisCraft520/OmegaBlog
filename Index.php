@@ -19,12 +19,12 @@ if ($posts === null) {
 <head>
     <meta charset="UTF-8">
     <title>OmegaOn</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
 <header class="Top">
     <div class="Container">
-        <a class="title" href="Index.php"><b>OmegaOn</b></a>
+        <a class="title" href="index.php"><b>OmegaOn</b></a>
         <div class="Perfil">
             <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
             <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>

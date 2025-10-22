@@ -22,7 +22,7 @@ foreach ($posts as $p) {
     }
 }
 if (!$post_encontrado) {
-    header('Location: Index.php');
+    header('Location: index.php');
     exit;
 }
 //comentarios 
@@ -63,12 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_POST != "") {
 <head>
     <meta charset="UTF-8">
     <title>OmegaOn</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
 </head>
 
 <body>
     <header class="Top">
-        <div class="Container"> <a class="title" href="Index.php"><b>OmegaOn</b></a>
+        <div class="Container"> <a class="title" href="index.php"><b>OmegaOn</b></a>
             <div class="Perfil"> <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
                 <h2 class="Nome" <?php echo $invisivel_poslogin; ?>> <?php echo htmlspecialchars($USUARIO); ?> </h2>
             </div>

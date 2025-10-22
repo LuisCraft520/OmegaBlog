@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($usuario["nome"] == $nome) {
             if ($usuario["senha"] == $senha) {
                 $_SESSION['usuario'] = $nome;
-                header("Location: Index.php");
+                header("Location: index.php");
                 exit;
             } else {
                 $invisivel_erro = '';
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
     <header class="Top">
         <div class="Container">
-        <a class="title" href="Index.php"><b>OmegaOn</b></a>
+        <a class="title" href="index.php"><b>OmegaOn</b></a>
             <div class="Perfil">
                 <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
                 <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
