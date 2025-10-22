@@ -11,7 +11,7 @@ $ARQUIVO_JSON = 'json/usuarios.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $usuarios = json_decode($json_data, true);
 if ($usuarios === null) {
-    $usuarios  = "";
+    $usuarios  = [];
 }
 
 

@@ -10,7 +10,7 @@ $ARQUIVO_JSON = 'json/posts.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $posts = json_decode($json_data, true);
 if ($posts === null) {
-    $posts  = "";
+    $posts  = [];
 }
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
