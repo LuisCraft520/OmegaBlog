@@ -26,9 +26,9 @@ if (!$post_encontrado) {
     exit;
 }
 //comentarios 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comentario = $_POST["comentario"] ?? "";
-    $comentario_formatado = wordwrap($comentario, 64, "\n", false);
+if ($_SERVER["REQUEST_METHOD"] == "POST" and $_POST != "") {
+    $comentario = $_POST["comentario"];
+    $comentario_formatado = wordwrap($comentario, 64, "\n", true);
     if ($USUARIO === null) {
          /*erro sem user*/
     } else {
@@ -74,13 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </header>
+
     <div class="post-completo">
-        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <p><b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b></p>
+        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
-    </div>
-    <hr>
-    <div class="comentarios">
+        <br>
         <h2>Comentários</h2>
         <div class="comentar">
             <form method="post"> 
@@ -94,41 +93,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return strtotime($b['data']) - strtotime($a['data']);
         });
         foreach($posts as $post) {
-            foreach($post['comentarios'] as $comentario){
-                //verificador de data e hora
-                $texto_horario = '';
+            if($post['id'] == $id){
+                foreach($post['comentarios'] as $comentario){
+                    //verificador de data e hora
+                    $texto_horario = '';
 
-                $data_comment = new DateTime($comentario['data']);
-                $agora = new DateTime("now",null); // horário atual
+                    $data_comment = new DateTime($comentario['data']);
+                    $agora = new DateTime("now",null); // horário atual
 
-                $diferenca = $agora->diff($data_comment);
+                    $diferenca = $agora->diff($data_comment);
 
-                if ($diferenca->days >= 1) {
-                    $texto_horario = "Há {$diferenca->days} dias.";
-                } else {
-                    $horas = ($diferenca->h) + ($diferenca->i / 60);
-                    $texto_horario = "Há " . round($horas) . " h.";
+                    if ($diferenca->days >= 1) {
+                        $texto_horario = "Há {$diferenca->days} dias.";
+                    } else {
+                        $horas = ($diferenca->h) + ($diferenca->i / 60);
+                        $texto_horario = "Há " . round($horas) . " h.";
+                    }
+
+                    echo '<div class="coment">';
+                    echo '<h4 class="usuario_coment"><b>' . $comentario['usuario'] . ' •  </b>' . $texto_horario . '</h4>';
+                    //fazer com que cada conteudo tenha no maximo 6 linhas
+                    $texto = $comentario['comentario'];
+
+                    $linhas = explode("\n", $texto);
+
+                    if (count($linhas) > 6) {
+                        $linhas = array_slice($linhas, 0, 12);
+                        $texto_reduzido = implode("\n", $linhas) . "\n...";
+                    } else {
+                        $texto_reduzido = implode("\n", $linhas);
+                    }
+
+                    echo '<h5 class="conteudo_coment">' . $texto_reduzido . '</h5>'; 
+
+                    echo '</div>';
+                    echo '<hr>';
                 }
-
-                echo '<div class="coment">';
-                echo '<h4 class="usuario_coment"><b>' . $comentario['usuario'] . ' •  </b>' . $texto_horario . '</h4>';
-                //fazer com que cada conteudo tenha no maximo 6 linhas
-                $texto = $comentario['comentario'];
-
-                $linhas = explode("\n", $texto);
-
-                if (count($linhas) > 6) {
-                    $linhas = array_slice($linhas, 0, 12);
-                    $texto_reduzido = implode("\n", $linhas) . "\n...";
-                } else {
-                    $texto_reduzido = implode("\n", $linhas);
-                }
-
-                echo '<h5 class="conteudo_coment">' . $texto_reduzido . '</h5>'; 
-
-                echo '</div>';
-                echo '<hr>';
-
             }
         }
         

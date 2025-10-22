@@ -214,7 +214,7 @@ input[type="password"] {
 
 
 
-/* Área futura dos posts */
+/* Área dos posts */
 .content {
     max-width: 800px;
     margin: 20px auto;
@@ -274,3 +274,87 @@ input[type="password"] {
     border-top: 1px solid #ddd;
     margin: 10px 0;
 }
+/* Página do post completo */
+.post-completo {
+    max-width: 800px;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 25px;
+}
+
+.post-completo h2 {
+    margin: 10px 0 15px;
+    color: #222;
+}
+
+.post-completo p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.post-completo .comentar {
+    margin-top: 20px;
+}
+
+.post-completo .comentar textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.post-completo .comentar textarea:focus {
+    border-color: #6b03a7;
+    outline: none;
+}
+
+.post-completo .comentar button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    background-color: #6b03a7;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.post-completo .comentar button:hover {
+    background-color: #530280;
+}
+
+/* Comentários */
+.coment {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.usuario_coment {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.conteudo_coment {
+    font-size: 15px;
+    color: #333;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.post-completo hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+

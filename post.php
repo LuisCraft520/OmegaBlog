@@ -19,7 +19,7 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
-    $conteudo_formatado = wordwrap($conteudo, 64, "\n", false);
+    $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
 
     if (strlen($titulo) > 100) {
         //erro
