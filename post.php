@@ -26,8 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($USUARIO === null) {
         //erro sem user
     } else {
-        $last_id = max($posts) ?? 0;
-        $new_id = $last_id + 1;
+        if (!empty($posts)) {
+            $ids = array_column($posts, 'id');
+            $last_id = max($ids);
+        }
+        $new_id = ($last_id ?? 0) + 1;
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,

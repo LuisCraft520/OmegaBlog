@@ -63,7 +63,11 @@ if ($posts === null) {
                 $texto_horario = "Há {$diferenca->days} dias.";
             } else {
                 $horas = ($diferenca->h) + ($diferenca->i / 60);
+                if(round($horas) == 0){
+                    $texto_horario = "Há pouco tempo";
+                } else {
                 $texto_horario = "Há " . round($horas) . " h.";
+                }
             }
             echo '<a href="postview.php?id=' . $post['id'] . '" class="post_link">';
             echo '<div class="posts">';

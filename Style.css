@@ -282,6 +282,7 @@ input[type="password"] {
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     padding: 25px;
+    position: relative;
 }
 
 .post-completo h2 {
@@ -295,17 +296,29 @@ input[type="password"] {
     line-height: 1.6;
 }
 
+.post-completo .edit-ico {
+    position:absolute;
+    right: 30px;
+}
+
+
+.post-completo .edit-ico:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+}
+
 .post-completo .comentar {
     margin-top: 20px;
 }
 
 .post-completo .comentar textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
+    width: 95%;
+    padding: 12px 16px;
     border: 1px solid #ccc;
+    border-radius: 22px;
+    font-size: 16px;
     resize: vertical;
-    font-size: 14px;
     transition: border-color 0.3s;
 }
 

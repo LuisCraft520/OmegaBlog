@@ -6,6 +6,7 @@ $USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 
+$invisivel_user ='style="display: none;"';
 
 $ARQUIVO_JSON = 'json/posts.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
@@ -57,7 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         file_put_contents($ARQUIVO_JSON, $json_string);
         header('Location: postview.php?id=' . $id);
     }
-} ?>
+}
+//edit post
+if($post_encontrado['usuario'] == $USUARIO){
+    $invisivel_user ='';
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -78,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <div class="post-completo">
-        <p><b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b></p>
-        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
+        <p><b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b><a <?php echo $invisivel_user; ?>><img class="edit-ico" src="img/editar.png" alt="editar" width="20" height="20"></a></p>
+        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?><a <?php echo $invisivel_user; ?>><img class="edit-ico" src="img/delete.png" alt="editar" width="20" height="20"></a></h2>
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
         <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
         <br>
@@ -94,12 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <br> 
         <?php
-        usort($posts, function($a, $b) {
-            return strtotime($b['data']) - strtotime($a['data']);
-        });
-        foreach($posts as $post) {
-            if($post['id'] == $id){
-                foreach($post['comentarios'] as $comentario){
+                usort($post_encontrado['comentarios'], function($a, $b) {
+                    return strtotime($b['data']) - strtotime($a['data']);
+                });
+                foreach($post_encontrado['comentarios'] as $comentario){
                     //verificador de data e hora
                     $texto_horario = '';
 
@@ -112,7 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $texto_horario = "Há {$diferenca->days} dias.";
                     } else {
                         $horas = ($diferenca->h) + ($diferenca->i / 60);
+                        if(round($horas) == 0){
+                            $texto_horario = "Há pouco tempo";
+                        } else {
                         $texto_horario = "Há " . round($horas) . " h.";
+                        }
                     }
 
                     echo '<div class="coment">';
@@ -134,8 +142,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '</div>';
                     echo '<hr>';
                 }
-            }
-        }
         
         ?>
     </div>
