@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //erro sem user
     } else {
         $last_id = max($posts) ?? 0;
-        $new_id = $last_id["id"] + 1 ?? 0;
+        $new_id = $last_id + 1;
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,
@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         file_put_contents($ARQUIVO_JSON, $json_string);
+        header('Location: postview.php?id=' . $new_id);
     }
 
 }

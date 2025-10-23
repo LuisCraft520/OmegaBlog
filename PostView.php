@@ -26,11 +26,11 @@ if (!$post_encontrado) {
     exit;
 }
 //comentarios 
-if ($_SERVER["REQUEST_METHOD"] == "POST" and $_POST != "") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comentario = $_POST["comentario"];
     $comentario_formatado = wordwrap($comentario, 64, "\n", true);
-    if ($USUARIO === null) {
-         /*erro sem user*/
+    if ($USUARIO === null or $comentario === "") {
+         /*erro*/
     } else {
         $new_array = [];
         foreach ($posts as $post) {
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_POST != "") {
         }
         $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         file_put_contents($ARQUIVO_JSON, $json_string);
+        header('Location: postview.php?id=' . $id);
     }
 } ?>
 <!DOCTYPE html>
@@ -80,14 +81,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_POST != "") {
         <p><b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b></p>
         <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
+        <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
         <br>
-        <h2>Comentários</h2>
-        <div class="comentar">
-            <form method="post"> 
-                <textarea type="text" name="comentario" rows="1" placeholder="Adicione sua resposta."></textarea> 
-                <button type="submit">Comentar</button> 
-            </form>
-        </div> 
+        <div <?php echo $invisivel_poslogin; ?>><!--invisivel poslogin-->
+            <h2>Comentários</h2>
+            <div class="comentar">
+                <form method="post"> 
+                    <textarea type="text" name="comentario" rows="1" placeholder="Adicione sua resposta."></textarea> 
+                    <button type="submit">Comentar</button> 
+                </form>
+            </div> 
+        </div>
         <br> 
         <?php
         usort($posts, function($a, $b) {

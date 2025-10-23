@@ -11,7 +11,7 @@ $ARQUIVO_JSON = 'json/usuarios.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $usuarios = json_decode($json_data, true);
 if ($usuarios === null) {
-    $usuarios  = [];
+    $usuarios = [];
 }
 
 
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensagem = "Confirme sua senha novamente";
     } else {
     $last_id = max($usuarios) ?? 0;
-    $new_id = $last_id["id"] + 1;
+    $new_id = $last_id + 1;
     $usuario = [        
         "id" => $new_id,
         "nome" => $nome,
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $json_string = json_encode($usuarios, JSON_PRETTY_PRINT);
 
     file_put_contents($ARQUIVO_JSON, $json_string);
-    $mensagem = "Registrado com sucesso, volte ao nosso site de login";
+    header('Location: login.php');
     }
 }
 ?>

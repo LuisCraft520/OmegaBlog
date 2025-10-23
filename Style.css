@@ -358,6 +358,11 @@ input[type="password"] {
     margin: 15px 0;
 }
 
+.post-completo .ERRO {
+    font-size: 16px;
+    color: #b00;
+}
+
 /*area celular*/
 @media (max-width: 768px) {
   .Top .Container {
@@ -402,3 +407,4 @@ input[type="password"] {
     font-size: 14px;
   }
 }
+
