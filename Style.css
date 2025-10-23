@@ -298,11 +298,24 @@ input[type="password"] {
 
 .post-completo .edit-ico {
     position:absolute;
-    right: 30px;
+    right: 60px;
+
 }
 
 
 .post-completo .edit-ico:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+}
+.post-completo .del-ico {
+    position:absolute;
+    right: 30px;
+
+}
+
+
+.post-completo .del-ico:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 
@@ -419,5 +432,18 @@ input[type="password"] {
     width: 100%;
     font-size: 14px;
   }
+
+.post-completo .edit-ico {
+    position:absolute;
+    right: 60px;
+
+}
+
+.post-completo .del-ico {
+    position:absolute;
+    right: 30px;
+
+}
+
 }
 

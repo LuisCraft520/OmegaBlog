@@ -84,8 +84,14 @@ if($post_encontrado['usuario'] == $USUARIO){
     </header>
 
     <div class="post-completo">
-        <p><b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b><a <?php echo $invisivel_user; ?>><img class="edit-ico" src="img/editar.png" alt="editar" width="20" height="20"></a></p>
-        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?><a <?php echo $invisivel_user; ?>><img class="edit-ico" src="img/delete.png" alt="editar" width="20" height="20"></a></h2>
+        <p>
+            <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
+            <?php echo '<a class="edit-ico" ' . $invisivel_user . 'href="editpost.php?id=' . $id . '" >'?>
+                <img src="img/editar.png" alt="editar" width="20" height="20">
+            </a>
+            <a class="del-ico" <?php echo $invisivel_user; ?>><img src="img/delete.png" alt="editar" width="20" height="20"></a>
+        </p>
+        <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
         <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
         <br>
@@ -93,7 +99,7 @@ if($post_encontrado['usuario'] == $USUARIO){
             <h2>Comentários</h2>
             <div class="comentar">
                 <form method="post"> 
-                    <textarea type="text" name="comentario" rows="1" placeholder="Adicione sua resposta."></textarea> 
+                    <textarea type="text" name="comentario" rows="2" placeholder="Adicione sua resposta."></textarea> 
                     <button type="submit">Comentar</button> 
                 </form>
             </div> 
