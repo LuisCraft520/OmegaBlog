@@ -20,9 +20,35 @@ foreach ($posts as $p) {
         break;
     }
 }
-if (!$post_encontrado) {
-    //header('Location: index.php');
-    //exit;
+if (!$post_encontrado or $post_encontrado['usuario'] != $USUARIO) {
+    header('Location: index.php');
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $titulo = $_POST["titulo"] ?? "";
+    $conteudo = $_POST["content"] ?? "";
+    $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
+
+    if (strlen($titulo) > 100) {
+        //erro
+    } elseif ($USUARIO === null) {
+        //erro sem user
+    } else {
+        $new_array = [];
+        foreach ($posts as $post) {
+            if ($post['id'] === $id) {
+                $post['titulo'] = $titulo;
+                $post['conteudo'] = $conteudo_formatado;
+            }
+            array_push($new_array, $post);
+
+        }
+        $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        file_put_contents($ARQUIVO_JSON, $json_string);
+        header('Location: postview.php?id=' . $id);
+    }
+
 }
  ?>
 <!DOCTYPE html>
@@ -34,14 +60,26 @@ if (!$post_encontrado) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<header class="Top">
-    <div class="Container">
-        <a class="title" href="index.php"><b>OmegaOn</b></a>
-        <div class="Perfil">
-            <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
-            <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
-                <?php echo htmlspecialchars($USUARIO); ?>
-            </h2>
+    <header class="Top">
+        <div class="Container">
+            <a class="title" href="index.php"><b>OmegaOn</b></a>
+            <div class="Perfil">
+                <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
+                <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
+                    <?php echo htmlspecialchars($USUARIO); ?>
+                </h2>
+            </div>
         </div>
+    </header>
+    <div class="post_creator">
+        <form method="post">
+            <h2>Editar post</h2>
+            <br>
+            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" <?php echo 'value="' . $post_encontrado['titulo'] . '"' ?> maxlength="64" required>
+            <br><br><br>
+            <textarea type="text" name="content" rows="6" placeholder="Texto do post (opcional)" <?php echo 'value="' . $post_encontrado['conteudo'] . '"' ?>></textarea>
+            <br><br><br>
+            <button type="submit">Salvar alteraçoes</button>
+        </form>
     </div>
-</header>
+</body>
