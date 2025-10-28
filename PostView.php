@@ -92,13 +92,13 @@ if($post_encontrado['usuario'] == $USUARIO){
 
     <div class="post-completo">
         <div class="icos">
-        <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
+            <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
             <div class="ico-actions" <?php echo $invisivel_user; ?>>
                 <a class="edit-ico" href="editpost.php?id=<?php echo $id; ?>">
                     <img src="img/editar.png" alt="editar">
                 </a>
-                <form method="post" class="delete-form" <?php echo $invisivel_user; ?>>
-                    <button type="button" class="del-ico" onclick="abrirConfirmacao(this)">
+                <form method="post">
+                    <button type="submit" name="delete" class="del-ico">
                         <img src="img/delete.png" alt="excluir">
                     </button>
                 </form>
@@ -165,18 +165,5 @@ if($post_encontrado['usuario'] == $USUARIO){
         
         ?>
     </div>
-    <!-- Popup de confirmação (colocar UMA vez no final da página) -->
-    <div class="popup-confirmacao" id="popupConfirmacao" aria-hidden="true">
-    <div class="popup-backdrop" id="popupBackdrop"></div>
-    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-        <h3 id="popupTitle">Confirmar exclusão</h3>
-        <p>Tem certeza que deseja deletar este post?</p>
-        <div class="botoes">
-        <button id="confirmarDelete" class="btn-confirm">Sim, deletar</button>
-        <button id="cancelarDelete" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-    </div>
-    <script src="js/confirmacao.js"></script>
 </body>
 </html>
