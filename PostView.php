@@ -28,11 +28,13 @@ if (!$post_encontrado) {
 }
 //comentarios 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comentario = $_POST["comentario"];
+    $comentario = $_POST["comentario"] ?? "";
     $comentario_formatado = wordwrap($comentario, 64, "\n", true);
-    if ($USUARIO === null or $comentario === "") {
+    if ($USUARIO === null) {
          /*erro*/
-    } else {
+    } elseif (isset($_POST["delete"]) == true) {
+        echo "oi";
+    } elseif ($comentario !== "") {
         $new_array = [];
         foreach ($posts as $post) {
             if ($post['id'] === $id) {
@@ -63,6 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if($post_encontrado['usuario'] == $USUARIO){
     $invisivel_user ='';
 }
+//delete post
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -84,13 +91,20 @@ if($post_encontrado['usuario'] == $USUARIO){
     </header>
 
     <div class="post-completo">
-        <p>
-            <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
-            <?php echo '<a class="edit-ico" ' . $invisivel_user . 'href="editpost.php?id=' . $id . '" >'?>
-                <img src="img/editar.png" alt="editar" width="20" height="20">
-            </a>
-            <a class="del-ico" <?php echo $invisivel_user; ?>><img src="img/delete.png" alt="editar" width="20" height="20"></a>
-        </p>
+        <div class="icos">
+        <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
+            <div class="ico-actions" <?php echo $invisivel_user; ?>>
+                <a class="edit-ico" href="editpost.php?id=<?php echo $id; ?>">
+                    <img src="img/editar.png" alt="editar">
+                </a>
+                <form method="post" class="delete-form" <?php echo $invisivel_user; ?>>
+                    <button type="button" class="del-ico" onclick="abrirConfirmacao(this)">
+                        <img src="img/delete.png" alt="excluir">
+                    </button>
+                </form>
+            </div>
+        </div>
+
         <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
         <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
@@ -151,3 +165,18 @@ if($post_encontrado['usuario'] == $USUARIO){
         
         ?>
     </div>
+    <!-- Popup de confirmação (colocar UMA vez no final da página) -->
+    <div class="popup-confirmacao" id="popupConfirmacao" aria-hidden="true">
+    <div class="popup-backdrop" id="popupBackdrop"></div>
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h3 id="popupTitle">Confirmar exclusão</h3>
+        <p>Tem certeza que deseja deletar este post?</p>
+        <div class="botoes">
+        <button id="confirmarDelete" class="btn-confirm">Sim, deletar</button>
+        <button id="cancelarDelete" class="btn-cancel">Cancelar</button>
+        </div>
+    </div>
+    </div>
+    <script src="js/confirmacao.js"></script>
+</body>
+</html>

@@ -290,35 +290,52 @@ input[type="password"] {
     color: #222;
 }
 
-.post-completo p {
+
+.post-completo .icos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 16px;
     color: #333;
     line-height: 1.6;
 }
 
-.post-completo .edit-ico {
-    position:absolute;
-    right: 60px;
-
+.post-completo .ico-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-
-.post-completo .edit-ico:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-
+.post-completo .ico-actions form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
 }
+
+.post-completo .edit-ico,
 .post-completo .del-ico {
-    position:absolute;
-    right: 30px;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
+.post-completo .edit-ico img,
+.post-completo .del-ico img {
+    width: 20px !important;
+    height: 20px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    vertical-align: middle;
+}
 
-.post-completo .del-ico:hover {
+.post-completo .edit-ico:hover img,
+.post-completo .del-ico:hover img {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-
 }
 
 .post-completo .comentar {
@@ -387,6 +404,85 @@ input[type="password"] {
 .post-completo .ERRO {
     font-size: 16px;
     color: #b00;
+}
+
+/* popup */
+
+/* container inicial escondido */
+.popup-confirmacao {
+  position: fixed;
+  inset: 0;
+  display: none;          /* escondido por padrão */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* backdrop (fade escuro) */
+.popup-confirmacao .popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+/* caixa central */
+.popup-confirmacao .popup-content {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  transform: translateY(10px) scale(0.98);
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
+  text-align: center;
+}
+
+/* quando ativo */
+.popup-confirmacao.active {
+  display: flex;
+}
+
+.popup-confirmacao.active .popup-backdrop {
+  opacity: 1;
+}
+
+.popup-confirmacao.active .popup-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* botões */
+.popup-content .botoes {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-confirm {
+  background:#d32f2f;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn-cancel {
+  background:#efefef;
+  color:#333;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
 }
 
 /*area celular*/
