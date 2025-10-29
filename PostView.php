@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comentar"])) {
     }
 }
 //edit post
-if($post_encontrado['usuario'] == $USUARIO){
+if($post_encontrado['usuario'] == $USUARIO or $USUARIO == "ADMIN_LOUIS"){
     $invisivel_user ='';
 }
 //delete post

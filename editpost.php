@@ -20,11 +20,12 @@ foreach ($posts as $p) {
         break;
     }
 }
+if ($USUARIO != "ADMIN_LOUIS") {
 if (!$post_encontrado or $post_encontrado['usuario'] != $USUARIO) {
     header('Location: index.php');
     exit;
 }
-
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
