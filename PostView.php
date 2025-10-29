@@ -8,6 +8,8 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 
 $invisivel_user ='style="display: none;"';
 
+$invisivel_popup = 'style="display: none;"';
+
 $ARQUIVO_JSON = 'json/posts.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $posts = json_decode($json_data, true);
@@ -27,13 +29,11 @@ if (!$post_encontrado) {
     exit;
 }
 //comentarios 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comentar"])) {
     $comentario = $_POST["comentario"] ?? "";
     $comentario_formatado = wordwrap($comentario, 64, "\n", true);
     if ($USUARIO === null) {
          /*erro*/
-    } elseif (isset($_POST["delete"]) == true) {
-        echo "oi";
     } elseif ($comentario !== "") {
         $new_array = [];
         foreach ($posts as $post) {
@@ -66,10 +66,26 @@ if($post_encontrado['usuario'] == $USUARIO){
     $invisivel_user ='';
 }
 //delete post
-
-
-
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete"])){
+    if ($USUARIO === null) {
+        //erro
+    } else {
+        $invisivel_popup = 'style="display: flex;"';
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
+    $new_array = [];
+    foreach ($posts as $post) {
+        if ($post['id'] === $id) {
+            //nada
+        } else {
+            array_push($new_array, $post);
+        }
+    }
+        $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        file_put_contents($ARQUIVO_JSON, $json_string);
+        header('Location: postview.php?id=' . $id);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -114,7 +130,7 @@ if($post_encontrado['usuario'] == $USUARIO){
             <div class="comentar">
                 <form method="post"> 
                     <textarea type="text" name="comentario" rows="2" placeholder="Adicione sua resposta."></textarea> 
-                    <button type="submit">Comentar</button> 
+                    <button type="submit" name="comentar">Comentar</button> 
                 </form>
             </div> 
         </div>
@@ -165,5 +181,16 @@ if($post_encontrado['usuario'] == $USUARIO){
         
         ?>
     </div>
+<div class="popup" <?php echo $invisivel_popup; ?>>
+  <div class="popup-backdrop"></div>
+  <div class="popup-content">
+    <h3>Confirmar exclusão</h3>
+    <p>Tem certeza que deseja deletar este post?</p>
+    <form class="botoes" method="post">
+      <button class="btn-confirm" name="confirm-popup">Sim, deletar</button>
+      <button class="btn-cancel">Cancelar</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
