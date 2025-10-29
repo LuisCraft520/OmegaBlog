@@ -111,11 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
             <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
             <div class="ico-actions" <?php echo $invisivel_user; ?>>
                 <a class="edit-ico" href="editpost.php?id=<?php echo $id; ?>">
-                    <img src="img/editar.png" alt="editar">
+                    <img src="img/editar.png" alt="editar" width="20" height="20">
                 </a>
                 <form method="post">
                     <button type="submit" name="delete" class="del-ico">
-                        <img src="img/delete.png" alt="excluir">
+                        <img src="img/delete.png" alt="excluir" width="20" height="20">
                     </button>
                 </form>
             </div>
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
                     }
 
                     echo '<div class="coment">';
-                    echo '<h4 class="usuario_coment"><b>' . $comentario['usuario'] . ' •  </b>' . $texto_horario . '</h4>';
+                    echo '<h4 class="usuario_coment"><b>' . htmlspecialchars($comentario['usuario']) . ' •  </b>' . $texto_horario . '</h4>';
                     //fazer com que cada conteudo tenha no maximo 6 linhas
                     $texto = $comentario['comentario'];
 
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
                         $texto_reduzido = implode("\n", $linhas);
                     }
 
-                    echo '<h5 class="conteudo_coment">' . $texto_reduzido . '</h5>'; 
+                    echo '<h5 class="conteudo_coment">' . htmlspecialchars($texto_reduzido) . '</h5>'; 
 
                     echo '</div>';
                     echo '<hr>';

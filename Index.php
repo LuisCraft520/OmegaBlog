@@ -71,8 +71,8 @@ if ($posts === null) {
             }
             echo '<a href="postview.php?id=' . $post['id'] . '" class="post_link">';
             echo '<div class="posts">';
-            echo '<h4 class="usuario_post"><b>' . $post['usuario'] . ' •  </b>' . $texto_horario . '</h4>';
-            echo '<h3 class="titulo_post">' . $post['titulo'] . '</h3>';
+            echo '<h4 class="usuario_post"><b>' . htmlspecialchars($post['usuario']) . ' •  </b>' . $texto_horario . '</h4>';
+            echo '<h3 class="titulo_post">' . htmlspecialchars($post['titulo']) . '</h3>';
             //fazer com que cada conteudo tenha no maximo 6 linhas
             $texto = $post['conteudo'];
 
@@ -85,7 +85,7 @@ if ($posts === null) {
                 $texto_reduzido = implode("\n", $linhas);
             }
 
-            echo '<h5 class="conteudo_post">' . $texto_reduzido . '</h5>'; 
+            echo '<h5 class="conteudo_post">' . htmlspecialchars($texto_reduzido) . '</h5>'; 
 
             echo '</div>';
             echo '</a>';

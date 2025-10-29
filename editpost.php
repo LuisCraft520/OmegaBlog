@@ -75,9 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post">
             <h2>Editar post</h2>
             <br>
-            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" <?php echo 'value="' . $post_encontrado['titulo'] . '"' ?> maxlength="64" required>
+            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" <?php echo 'value="' . htmlspecialchars($post_encontrado['titulo']) . '"' ?> maxlength="64" required>
             <br><br><br>
-            <textarea type="text" name="content" rows="6" placeholder="Texto do post (opcional)" <?php echo 'value="' . $post_encontrado['conteudo'] . '"' ?>></textarea>
+            <textarea name="content" rows="6" placeholder="Texto do post (opcional)"><?php echo htmlspecialchars($post_encontrado['conteudo']); ?></textarea>
             <br><br><br>
             <button type="submit">Salvar alteraçoes</button>
         </form>
