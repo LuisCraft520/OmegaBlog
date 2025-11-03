@@ -16,6 +16,9 @@ if ($posts === null) {
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 
+$pastaIMG = 'uploadsIMG/';
+$pastaVID = 'uploadsVID/';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
@@ -26,6 +29,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($USUARIO === null) {
         //erro sem user
     } else {
+
+        if (!is_dir($pastaIMG)) {
+            mkdir($pastaIMG, 0777, true);
+        }
+
+        $arquivoIMG = $_FILES['imagem'];
+        $nomeTemp = $arquivoIMG['tmp_name'];
+        $nomeFinal = $pastaIMG . "_" . $USUARIO . "_" . basename($arquivoIMG['name']);
+
+        $tipoIMG = mime_content_type($nomeTemp);
+        $permitidosIMG = ['image/jpeg', 'image/png'];
+
+        if (!in_array($tipoIMG,$permitidosIMG)) {
+            die();
+        }
+
+
+
         if (!empty($posts)) {
             $ids = array_column($posts, 'id');
             $last_id = max($ids);
@@ -70,15 +91,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </header>
     <div class="post_creator">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <h2>Postar</h2>
             <br>
-            <input type="text" name="titulo" autocomplete="off" placeholder="Titulo" maxlength="64" required>
+
+            <input type="text" name="titulo" autocomplete="off" placeholder="Título" maxlength="64" required>
             <br><br><br>
-            <textarea type="text" name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
+
+            <input type="file" name="imagem" accept="image/*">
             <br><br><br>
+
+            <textarea name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
+            <br><br><br>
+
             <button type="submit">Postar</button>
         </form>
-    </div>
+
 </body>
 </html>

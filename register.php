@@ -96,9 +96,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form">
         <form method="post">
             <h2>Registrar</h2>
-            <input type="text" name="nome" autocomplete="off" required placeholder="Digite seu nome">
-            <input type="password" name="senha" autocomplete="off" required placeholder="Digite sua senha">
-            <input type="password" name="senha2" autocomplete="off" required placeholder="Confirme sua senha">
+            <h3>Digite seu nome</h3>
+            <input type="text" name="nome" autocomplete="off" required>
+            <h3>Digite sua senha</h3>
+            <input type="password" name="senha" autocomplete="off" required>
+            <h3>Confirme sua senha</h3>
+            <input type="password" name="senha2" autocomplete="off" required>
             <br>
             <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>
             <button type="submit">Registrar</button>
