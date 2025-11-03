@@ -17,6 +17,21 @@ if ($usuarios === null) {
 
 $mensagem = "";
 $invisivel_erro = 'style="display: none"';
+function validarSenha($senha) {
+    if (strlen($senha) < 8) {
+        return "A senha deve ter pelo menos 8 caracteres.";
+    }
+    if (!preg_match("/[a-z]/", $senha)) {
+        return "A senha deve conter pelo menos uma letra minúscula.";
+    }
+    if (!preg_match("/[A-Z]/", $senha)) {
+        return "A senha deve conter pelo menos uma letra maiúscula.";
+    }
+    if (!preg_match("/[0-9]/", $senha)) {
+        return "A senha deve conter pelo menos um número.";
+    }
+    return true;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"] ?? "";
@@ -29,12 +44,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         }
     }
-    if ($senha !== $senha2) {
+    if (strlen($nome) < 4) {
+        $invisivel_erro = '';
+        $mensagem = "o nome presisa ter mais de 4 caracteres";
+    } elseif ($senha !== $senha2) {
         $invisivel_erro = '';
         $mensagem = "Confirme sua senha novamente";
+    } elseif (validarSenha($senha) !== true) {
+        $invisivel_erro = '';
+        $mensagem = validarSenha($senha);
     } else {
-    $last_id = max($usuarios) ?? 0;
-    $new_id = $last_id + 1;
+    if (!empty($usuarios)) {
+        $ids = array_column($usuarios, 'id');
+        $last_id = max($ids);
+        }
+    $new_id = ($last_id ?? 0) + 1;
     $usuario = [        
         "id" => $new_id,
         "nome" => $nome,
@@ -72,20 +96,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form">
         <form method="post">
             <h2>Registrar</h2>
-            <h3>Digite seu nome</h3>
-            <input type="text" name="nome" autocomplete="off" required>
-            <h3>Digite sua senha</h3>
-            <input type="text" name="senha" autocomplete="off" required>
-            <h3>Confirme sua senha</h3>
-            <input type="text" name="senha2" autocomplete="off" required >
+            <input type="text" name="nome" autocomplete="off" required placeholder="Digite seu nome">
+            <input type="password" name="senha" autocomplete="off" required placeholder="Digite sua senha">
+            <input type="password" name="senha2" autocomplete="off" required placeholder="Confirme sua senha">
             <br>
             <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>
-            <img src="img/CAPTCHA.png" alt="Captcha" width="240" height="70">
             <button type="submit">Registrar</button>
         </form>
         <br>
         <h4>Ja possui conta?<a href="login.php">Logar</a></h4>
-        
+
     </div>
     </body>
 </html>

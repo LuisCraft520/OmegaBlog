@@ -70,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>
 
-            <img src="img/CAPTCHA.png" alt="Captcha" width="240" height="70">
             <button type="submit">Logar</button>
         </form>
         <h4>Não possui conta?<a href="register.php">Registrar</a></h4>

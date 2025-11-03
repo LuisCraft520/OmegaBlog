@@ -38,7 +38,7 @@ if ($posts === null) {
 <div class="StartBlog">
     <br>
     <h1>Bem vindo ao OmegaOn</h1>
-    <h3>O forum oficial da turma Omega</h3>
+    <h3>O forum oficial da turma Omega (feito por louis_louis)</h3>
     <br>
     <h4 <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Postar no forun </h4>
     <a class="Post-Button" href="post.php" <?php echo $invisivel_poslogin; ?>>Postar</a>

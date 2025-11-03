@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $post['conteudo'] = $conteudo_formatado;
             }
             array_push($new_array, $post);
-
-        }
+          
+        } 
         $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         file_put_contents($ARQUIVO_JSON, $json_string);
         header('Location: postview.php?id=' . $id);
@@ -84,3 +84,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </body>
+</html>
