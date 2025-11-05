@@ -3,6 +3,8 @@
 
 # Ignorar a pasta JSON com dados locais
 json/
+uploadsIMG/
+uploadsVID/
 
 # Ignorar arquivos temporários comuns
 *.log

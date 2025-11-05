@@ -1,16 +1,17 @@
 <?php
 session_start();
 
-$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null ;
+$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 if ($USUARIO === null) {
     header('Location: login.php');
+    exit(); // Adicionado para evitar que o código continue após o redirecionamento
 }
 
 $ARQUIVO_JSON = 'json/posts.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $posts = json_decode($json_data, true);
 if ($posts === null) {
-    $posts  = [];
+    $posts = [];
 }
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
@@ -25,32 +26,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
 
     if (strlen($titulo) > 100) {
-        //erro
+        // erro - título muito longo
+        echo "O título não pode ter mais de 100 caracteres.";
     } elseif ($USUARIO === null) {
-        //erro sem user
+        // erro sem usuário
+        echo "Você precisa estar logado para postar.";
     } else {
 
         if (!is_dir($pastaIMG)) {
             mkdir($pastaIMG, 0777, true);
         }
 
-        $arquivoIMG = $_FILES['imagem'];
-        $nomeTempIMG = $arquivoIMG['tmp_name'];
-        $nomeFinalIMG = $pastaIMG . $USUARIO . "_" . basename($arquivoIMG['name']);
+        // Verificando se o arquivo de imagem foi enviado
+        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
+            $arquivoIMG = $_FILES['imagem'];
+            $nomeTempIMG = $arquivoIMG['tmp_name'];
+            $nomeFinalIMG = $pastaIMG . $USUARIO . "_" . basename($arquivoIMG['name']);
 
-        $tipoIMG = mime_content_type($nomeTemp);
-        $permitidosIMG = ['image/jpeg', 'image/png'];
+            // Verificando o tipo de imagem
+            $tipoIMG = mime_content_type($nomeTempIMG);
+            $permitidosIMG = ['image/jpeg', 'image/png'];
 
-        if (!in_array($tipoIMG,$permitidosIMG)) {
-            die();
-        }
+            if (!in_array($tipoIMG, $permitidosIMG)) {
+                die("Arquivo inválido. Somente imagens JPEG ou PNG são permitidas.");
+            }
 
-        if (move_uploaded_file($nomeTempIMG, $nomeFinalIMG)) {
-            echo "Upload concluído: <a href='$nomeFinal'>$nomeFinalIMG</a>";
+            // Limitar o tamanho do arquivo (ex: 5MB)
+            if ($arquivoIMG['size'] > 5 * 1024 * 1024) {
+                die("O arquivo é muito grande. O tamanho máximo permitido é 5MB.");
+            }
+
+            // Movendo o arquivo para o diretório de upload
+            if (move_uploaded_file($nomeTempIMG, $nomeFinalIMG)) {
+                echo "Upload concluído: <a href='$nomeFinalIMG'>$nomeFinalIMG</a>";
+            } else {
+                echo "Erro ao enviar o arquivo.";
+            }
         } else {
-            echo "Erro ao enviar o arquivo.";
+            echo "Nenhum arquivo enviado ou erro no upload.";
         }
 
+        // Adicionando o post ao array
         if (!empty($posts)) {
             $ids = array_column($posts, 'id');
             $last_id = max($ids);
@@ -59,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_post = [
             "id" => $new_id,
             "usuario" => $USUARIO,
-            "data" => (new DateTime("now",null))->format(DateTime::ATOM),
+            "data" => (new DateTime("now", null))->format(DateTime::ATOM),
             "titulo" => $titulo,
             "conteudo" => $conteudo_formatado,
             "comentarios" => [],
@@ -68,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         file_put_contents($ARQUIVO_JSON, $json_string);
-        #header('Location: postview.php?id=' . $new_id);
+        // Redirecionando para o post após salvar
+        header('Location: postview.php?id=' . $new_id);
+        exit(); // Finaliza o script após o redirecionamento
     }
-
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -89,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="Perfil">
                 <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
                 <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
-                    <?php echo htmlspecialchars(string: $USUARIO); ?>
+                    <?php echo htmlspecialchars($USUARIO); ?>
                 </h2>
             </div>
         </div>
@@ -110,6 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit">Postar</button>
         </form>
-
+    </div>
 </body>
 </html>
