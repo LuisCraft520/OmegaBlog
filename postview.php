@@ -77,7 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
     $new_array = [];
     foreach ($posts as $post) {
         if ($post['id'] === $id) {
-            //nada
+            if(file_exists($post['imagem'])) {
+                unlink($post['imagem']);
+            }
         } else {
             array_push($new_array, $post);
         }

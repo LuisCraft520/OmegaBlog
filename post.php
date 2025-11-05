@@ -77,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "usuario" => $USUARIO,
             "data" => (new DateTime("now", null))->format(DateTime::ATOM),
             "titulo" => $titulo,
+            "imagem" => $nomeFinalIMG,
             "conteudo" => $conteudo_formatado,
             "comentarios" => [],
         ];
@@ -118,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="titulo" autocomplete="off" placeholder="Título" maxlength="64" required>
             <br><br><br>
 
-            <input type="file" name="imagem" accept="image/*">
+            <input type="file" placeholder="Insira aqui sua foto (opcional)" name="imagem" accept="image/*">
             <br><br><br>
 
             <textarea name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
