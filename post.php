@@ -35,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $arquivoIMG = $_FILES['imagem'];
-        $nomeTemp = $arquivoIMG['tmp_name'];
-        $nomeFinal = $pastaIMG . "_" . $USUARIO . "_" . basename($arquivoIMG['name']);
+        $nomeTempIMG = $arquivoIMG['tmp_name'];
+        $nomeFinalIMG = $pastaIMG . $USUARIO . "_" . basename($arquivoIMG['name']);
 
         $tipoIMG = mime_content_type($nomeTemp);
         $permitidosIMG = ['image/jpeg', 'image/png'];
@@ -45,7 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die();
         }
 
-
+        if (move_uploaded_file($nomeTempIMG, $nomeFinalIMG)) {
+            echo "Upload concluído: <a href='$nomeFinal'>$nomeFinalIMG</a>";
+        } else {
+            echo "Erro ao enviar o arquivo.";
+        }
 
         if (!empty($posts)) {
             $ids = array_column($posts, 'id');
@@ -64,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         file_put_contents($ARQUIVO_JSON, $json_string);
-        header('Location: postview.php?id=' . $new_id);
+        #header('Location: postview.php?id=' . $new_id);
     }
 
 }
