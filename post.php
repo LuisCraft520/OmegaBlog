@@ -117,10 +117,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br>
 
             <input type="text" name="titulo" autocomplete="off" placeholder="Título" maxlength="64" required>
-            <br><br><br>
+            <br><br>
 
-            <input type="file" placeholder="Insira aqui sua foto (opcional)" name="imagem" accept="image/*">
-            <br><br><br>
+            <h4>Insira aqui sua foto (opcional)</h4>
+            <input type="file" name="imagem" accept="image/*">
 
             <textarea name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
             <br><br><br>
