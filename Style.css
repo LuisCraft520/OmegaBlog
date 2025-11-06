@@ -608,4 +608,11 @@ input[type="password"] {
       position:absolute;
       right: 30px;
   }
+
+  .post-completo .post-image {
+      width: 100%;
+      height: auto;
+      margin: 0 0 15px 0;
+      float: none;
+  }
 }
