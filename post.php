@@ -19,6 +19,44 @@ $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 
 $pastaIMG = 'uploadsIMG/';
 $pastaVID = 'uploadsVID/';
+$nomeFinalIMG = '';
+
+function SalvarImagem() {
+    global $pastaIMG, $USUARIO, $nomeFinalIMG;
+    
+    if (!is_dir($pastaIMG . $USUARIO . "/")) {
+        mkdir($pastaIMG . $USUARIO . "/", 0777, true);
+    }
+
+    // Verificando se o arquivo de imagem foi enviado
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
+        $arquivoIMG = $_FILES['imagem'];
+        $nomeTempIMG = $arquivoIMG['tmp_name'];
+        $nomeFinalIMG = $pastaIMG . $USUARIO . "/" . basename($arquivoIMG['name']);
+
+        // Verificando o tipo de imagem
+        $tipoIMG = mime_content_type($nomeTempIMG);
+        $permitidosIMG = ['image/jpeg', 'image/png'];
+
+        if (!in_array($tipoIMG, $permitidosIMG)) {
+            die("Arquivo inválido. Somente imagens JPEG ou PNG são permitidas.");
+        }
+
+        // Limitar o tamanho do arquivo (ex: 5MB)
+        if ($arquivoIMG['size'] > 5 * 1024 * 1024) {
+            die("O arquivo é muito grande. O tamanho máximo permitido é 5MB.");
+        }
+
+        // Movendo o arquivo para o diretório de upload
+        if (move_uploaded_file($nomeTempIMG, $nomeFinalIMG)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
@@ -32,39 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // erro sem usuário
         echo "Você precisa estar logado para postar.";
     } else {
-
-        if (!is_dir($pastaIMG)) {
-            mkdir($pastaIMG, 0777, true);
-        }
-
-        // Verificando se o arquivo de imagem foi enviado
-        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
-            $arquivoIMG = $_FILES['imagem'];
-            $nomeTempIMG = $arquivoIMG['tmp_name'];
-            $nomeFinalIMG = $pastaIMG . $USUARIO . "_" . basename($arquivoIMG['name']);
-
-            // Verificando o tipo de imagem
-            $tipoIMG = mime_content_type($nomeTempIMG);
-            $permitidosIMG = ['image/jpeg', 'image/png'];
-
-            if (!in_array($tipoIMG, $permitidosIMG)) {
-                die("Arquivo inválido. Somente imagens JPEG ou PNG são permitidas.");
-            }
-
-            // Limitar o tamanho do arquivo (ex: 5MB)
-            if ($arquivoIMG['size'] > 5 * 1024 * 1024) {
-                die("O arquivo é muito grande. O tamanho máximo permitido é 5MB.");
-            }
-
-            // Movendo o arquivo para o diretório de upload
-            if (move_uploaded_file($nomeTempIMG, $nomeFinalIMG)) {
-                echo "Upload concluído: <a href='$nomeFinalIMG'>$nomeFinalIMG</a>";
-            } else {
-                echo "Erro ao enviar o arquivo.";
-            }
-        } else {
-            echo "Nenhum arquivo enviado ou erro no upload.";
-        }
+        //SISTEMA DE UPLOAD DE IMAGENS
+        SalvarImagem();
 
         // Adicionando o post ao array
         if (!empty($posts)) {

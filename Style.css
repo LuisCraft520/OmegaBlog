@@ -395,6 +395,17 @@ input[type="password"] {
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
+.post-completo .post-image {            
+    float: left; /* Faz a imagem flutuar à esquerda */
+    margin-right: 20px; /* Espaço entre a imagem e o texto */
+    width: 200px; /* Defina o tamanho da imagem */
+    height: auto;
+}
+
+.post-completo .comentarios {
+    clear: both;
+}
+
 .post-completo .comentar {
     margin-top: 20px;
 }

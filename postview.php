@@ -124,10 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
         </div>
 
         <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
+        <img class="post-image" src="<?php echo htmlspecialchars($post_encontrado['imagem']); ?>" alt="Imagem do post">
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
         <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
         <br>
-        <div <?php echo $invisivel_poslogin; ?>><!--invisivel poslogin-->
+        <div class="comentarios" <?php echo $invisivel_poslogin; ?>><!--invisivel poslogin-->
+            <br>
             <h2>Comentários</h2>
             <div class="comentar">
                 <form method="post"> 
