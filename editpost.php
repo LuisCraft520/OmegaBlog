@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["salvar"])) {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
     $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
+    $link = $_POST["link"] ?? "";
 
     if (strlen($titulo) > 100) {
         //erro
@@ -84,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["salvar"])) {
             if ($post['id'] === $id) {
                 $post['titulo'] = $titulo;
                 $post['conteudo'] = $conteudo_formatado;
+                $post['link'] = $link;
                 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
                     if (SalvarImagem()) {
                     unlink($post['imagem']);
@@ -146,6 +148,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["remove_image"])) {
 
             <textarea name="content" rows="6" placeholder="Texto do post (opcional)"><?php echo htmlspecialchars($post_encontrado['conteudo']); ?></textarea>
             <br><br><br>
+
+            <input type="text" name="link" autocomplete="off" placeholder="Insira aqui seu link(opcional)" <?php echo 'value="' . htmlspecialchars($post_encontrado['link']) . '"' ?> maxlength="64">
+            <br><br>
 
             <button type="submit" name="salvar">Salvar alteraçoes</button>
         </form>
