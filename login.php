@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h3>Digite seu nome</h3>
             <input type="text" name="nome" autocomplete="off" required>
             <h3>Digite sua senha</h3>
-            <input type="text" name="senha" autocomplete="off" required>
+            <input type="password" name="senha" autocomplete="off" required>
             <br>
             
             <h4 class="erro" $invisivel_erro><?= $mensagem?></h4>

@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST["titulo"] ?? "";
     $conteudo = $_POST["content"] ?? "";
     $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
+    $link = $_POST["link"] ?? "";
 
     if (strlen($titulo) > 100) {
         // erro - título muito longo
@@ -86,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "titulo" => $titulo,
             "imagem" => $nomeFinalIMG,
             "conteudo" => $conteudo_formatado,
+            "link" => $link,
             "comentarios" => [],
         ];
         array_push($posts, $new_post);
@@ -131,6 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <textarea name="content" rows="6" placeholder="Texto do post (opcional)"></textarea>
             <br><br><br>
+
+            <input type="text" name="link" autocomplete="off" placeholder="Insira aqui seu link(opcional)" maxlength="64">
+            <br><br>
 
             <button type="submit">Postar</button>
         </form>

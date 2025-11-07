@@ -402,6 +402,10 @@ input[type="password"] {
     height: auto;
 }
 
+.post-completo .ERRO {
+    clear: both;
+}
+
 .post-completo .comentarios {
     clear: both;
 }
