@@ -63,13 +63,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "id" => $new_id,
         "nome" => $nome,
         "senha" => $senha,
+        "imagem" => "img\/Perfil.jpeg",
+        "descricao" => ""
     ];
     array_push($usuarios, $usuario);
 
     $json_string = json_encode($usuarios, JSON_PRETTY_PRINT);
 
     file_put_contents($ARQUIVO_JSON, $json_string);
-    header('Location: login.php');
+
+    $_SESSION['usuario'] = $nome;
+    header('Location: index.php');
     }
 }
 ?>
