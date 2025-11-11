@@ -19,14 +19,14 @@ if ($posts === null) {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>OmegaOn</title>
+    <title>AlfaOn</title>
     <link rel="stylesheet" href="Style.css?v=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header class="Top">
     <div class="Container">
-        <a class="title" href="index.php"><b>OmegaOn</b></a>
+        <a class="title" href="index.php"><b>AlfaOn</b></a>
         <div class="Perfil">
             <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
             <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
@@ -37,8 +37,8 @@ if ($posts === null) {
 </header>
 <div class="StartBlog">
     <br>
-    <h1>Bem vindo ao OmegaOn</h1>
-    <h3>O forum oficial da turma Omega (feito por louis_louis)</h3>
+    <h1>Bem vindo ao AlfaOn</h1>
+    <h3>O forum oficial da turma Alfa (feito por louis_louis)</h3>
     <br>
     <h4 <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Postar no forun </h4>
     <a class="Post-Button" href="post.php" <?php echo $invisivel_poslogin; ?>>Postar</a>

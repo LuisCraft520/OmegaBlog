@@ -43,14 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>OmegaOn-Login</title>
+        <title>AlfaOn-Login</title>
         <link rel="stylesheet" href="Style.css?v=1.0">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
     <header class="Top">
         <div class="Container">
-        <a class="title" href="index.php"><b>OmegaOn</b></a>
+        <a class="title" href="index.php"><b>AlfaOn</b></a>
             <div class="Perfil">
                 <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
                 <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
