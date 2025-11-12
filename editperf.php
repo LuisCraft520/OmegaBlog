@@ -10,9 +10,9 @@ $ARQUIVO_JSON = 'json/usuarios.json';
 $json_data = file_get_contents($ARQUIVO_JSON);
 $usuarios = json_decode($json_data, true);
 
-$post_encontrado = null;
+$seu_user = null;
 
-// Localiza o post
+// Localiza o usuario logado
 foreach ($usuarios as $u) {
     if ($u['nome'] === $USUARIO) {
         $seu_user = $u;
@@ -83,8 +83,8 @@ function SalvarImagem()
  */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nome = $_POST["nome"] ?? "NONAME";
-    $descricao = $_POST["descricao"] ?? "";
-    $descricao_formatada = wordwrap($descricao, 64, "\n", true);
+    $bio = $_POST["bio"] ?? "";
+    $bio_formatada = wordwrap($bio, 64, "\n", true);
     $deletar_image = isset($_POST["remove_image"]);
 
     if (strlen($titulo) > 20) {
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($usuario['nome'] === $USUARIO) {
                 // Atualiza campos
                 $usuario['nome'] = $nome;
-                $usuario['descricao'] = $descricao_formatada;
+                $usuario['bio'] = $bio_formatada;
 
                 // Upload de nova imagem
                 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>OmegaOn</title>
-    <link rel="stylesheet" href="Style.css?v=1.0">
+    <link rel="stylesheet" href="Style.css?v=3.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -146,9 +146,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <a class="title" href="index.php"><b>OmegaOn</b></a>
         <div class="Perfil">
             <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
-            <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
-                <?php echo htmlspecialchars($USUARIO); ?>
-            </h2>
+            <a class="Nome" href="perfview.php?id=<?php echo $seu_user['id']; ?>" <?php echo $invisivel_poslogin; ?>>
+                <b><?php echo htmlspecialchars($USUARIO); ?></b>
+            </a>
         </div>
     </div>
 </header>
@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="submit" name="remove_image" value="1">Remover imagem</button>
         <br><br>
 
-        <textarea name="descricao" rows="6" placeholder="Descrição"><?php echo htmlspecialchars($seu_user['descricao']); ?></textarea>
+        <textarea name="bio" rows="6" placeholder="Bio"><?php echo htmlspecialchars($seu_user['bio']); ?></textarea>
         <br><br><br>
 
         <button type="submit" name="salvar">Salvar alterações</button>

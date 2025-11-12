@@ -7,11 +7,28 @@ if ($USUARIO === null) {
     exit(); // Adicionado para evitar que o código continue após o redirecionamento
 }
 
-$ARQUIVO_JSON = 'json/posts.json';
-$json_data = file_get_contents($ARQUIVO_JSON);
-$posts = json_decode($json_data, true);
+$ARQUIVO_JSON_POST = 'json/posts.json';
+$json_data_post = file_get_contents($ARQUIVO_JSON_POST);
+$posts = json_decode($json_data_post, true);
 if ($posts === null) {
-    $posts = [];
+    $posts  = [];
+}
+
+$ARQUIVO_JSON_USER = 'json/usuarios.json';
+$json_data_user = file_get_contents($ARQUIVO_JSON_USER);
+$usuarios = json_decode($json_data_user, true);
+if ($usuarios === null) {
+    $usuarios = [];
+}
+
+$seu_user = null;
+
+// Localiza o usuario logado
+foreach ($usuarios as $u) {
+    if ($u['nome'] === $USUARIO) {
+        $seu_user = $u;
+        break;
+    }
 }
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
@@ -105,21 +122,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>OmegaOn-Post</title>
-    <link rel="stylesheet" href="Style.css?v=1.0">
+    <link rel="stylesheet" href="Style.css?v=3.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header class="Top">
-        <div class="Container">
-            <a class="title" href="index.php"><b>OmegaOn</b></a>
-            <div class="Perfil">
-                <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
-                <h2 class="Nome" <?php echo $invisivel_poslogin; ?>>
-                    <?php echo htmlspecialchars($USUARIO); ?>
-                </h2>
-            </div>
+<header class="Top">
+    <div class="Container">
+        <a class="title" href="index.php"><b>OmegaOn</b></a>
+        <div class="Perfil">
+            <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
+            <a class="Nome" href="perfview.php?id=<?php echo $seu_user['id']; ?>" <?php echo $invisivel_poslogin; ?>>
+                <b><?php echo htmlspecialchars($USUARIO); ?></b>
+            </a>
         </div>
-    </header>
+    </div>
+</header>
     <div class="post_creator">
         <form method="post" enctype="multipart/form-data">
             <h2>Postar</h2>
