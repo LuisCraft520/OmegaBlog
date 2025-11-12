@@ -121,14 +121,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>OmegaOn-Post</title>
+    <title>AlfaOn-Post</title>
     <link rel="stylesheet" href="Style.css?v=3.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header class="Top">
     <div class="Container">
-        <a class="title" href="index.php"><b>OmegaOn</b></a>
+        <a class="title" href="index.php"><b>AlfaOn</b></a>
         <div class="Perfil">
             <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
             <a class="Nome" href="perfview.php?id=<?php echo $seu_user['id']; ?>" <?php echo $invisivel_poslogin; ?>>
