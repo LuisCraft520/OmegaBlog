@@ -1,24 +1,14 @@
 <?php
 session_start();
 
-$USUARIO = $_SESSION['usuario'] ?? null;
+$USUARIO = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null ;
 
 $invisivel_prelogin = $USUARIO ? 'style="display: none;"' : '';
 $invisivel_poslogin = $USUARIO ? '' : 'style="display: none;"';
 
-$ARQUIVO_JSON_POST = 'json/posts.json';
-$json_data_post = file_get_contents($ARQUIVO_JSON_POST);
-$posts = json_decode($json_data_post, true);
-if ($posts === null) {
-    $posts  = [];
-}
-
-$ARQUIVO_JSON_USER = 'json/usuarios.json';
-$json_data_user = file_get_contents($ARQUIVO_JSON_USER);
-$usuarios = json_decode($json_data_user, true);
-if ($usuarios === null) {
-    $usuarios = [];
-}
+$ARQUIVO_JSON = 'json/usuarios.json';
+$json_data = file_get_contents($ARQUIVO_JSON);
+$usuarios = json_decode($json_data, true);
 
 $seu_user = null;
 
@@ -30,24 +20,14 @@ foreach ($usuarios as $u) {
     }
 }
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$post_encontrado = null;
-
-// Localiza o post
-foreach ($posts as $p) {
-    if ($p['id'] === $id) {
-        $post_encontrado = $p;
-        break;
-    }
-}
-
 // Proteção de acesso
 if ($USUARIO != "ADMIN_LOUIS") {
-    if (!$post_encontrado || $post_encontrado['usuario'] != $USUARIO) {
+    if (!$seu_user || $seu_user['nome'] != $USUARIO) {
         header('Location: index.php');
         exit;
     }
 }
+
 
 $pastaIMG = 'uploadsIMG/';
 $nomeFinalIMG = '';
@@ -80,7 +60,7 @@ function SalvarImagem()
     }
 
     // Nome final único
-    $nomeFinalIMG = $pastaUser . uniqid('IMG_', true) . '.' . $extensao;
+    $nomeFinalIMG = $pastaUser . uniqid('Perfil_', true) . '.' . $extensao;
 
     // Verifica tipo MIME real
     $tipoIMG = mime_content_type($nomeTempIMG);
@@ -102,46 +82,44 @@ function SalvarImagem()
  * Processamento do formulário
  */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $titulo = $_POST["titulo"] ?? "";
-    $conteudo = $_POST["content"] ?? "";
-    $conteudo_formatado = wordwrap($conteudo, 64, "\n", true);
-    $link = $_POST["link"] ?? "";
+    $nome = $_POST["nome"] ?? "NONAME";
+    $bio = $_POST["bio"] ?? "";
+    $bio_formatada = wordwrap($bio, 64, "\n", true);
     $deletar_image = isset($_POST["remove_image"]);
 
-    if (strlen($titulo) > 100) {
-        die("Erro: título muito longo.");
+    if (strlen($titulo) > 20) {
+        die("Erro: nome muito longo.");
     } elseif ($USUARIO === null) {
         die("Erro: você precisa estar logado para editar.");
     } else {
         $new_array = [];
 
-        foreach ($posts as $post) {
-            if ($post['id'] === $id) {
+        foreach ($usuarios as $usuario) {
+            if ($usuario['nome'] === $USUARIO) {
                 // Atualiza campos
-                $post['titulo'] = $titulo;
-                $post['conteudo'] = $conteudo_formatado;
-                $post['link'] = $link;
+                $usuario['nome'] = $nome;
+                $usuario['bio'] = $bio_formatada;
 
                 // Upload de nova imagem
                 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
                     if (SalvarImagem()) {
-                        if (!empty($post['imagem']) && file_exists($post['imagem'])) {
-                            unlink($post['imagem']);
+                        if (!empty($usuario['imagem']) && file_exists($usuario['imagem'])) {
+                            unlink($usuario['imagem']);
                         }
-                        $post['imagem'] = $nomeFinalIMG;
+                        $usuario['imagem'] = $nomeFinalIMG;
                     }
                 }
 
                 // Remover imagem
                 if ($deletar_image) {
-                    if (!empty($post['imagem']) && file_exists($post['imagem'])) {
-                        unlink($post['imagem']);
+                    if (!empty($usuario['imagem']) && file_exists($usuario['imagem'])) {
+                        unlink($usuario['imagem']);
                     }
-                    $post['imagem'] = null;
+                    $usuario['imagem'] = null;
                 }
             }
 
-            $new_array[] = $post;
+            $new_array[] = $usuario;
         }
 
         // Salva alterações
@@ -149,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         file_put_contents($ARQUIVO_JSON, $json_string);
 
         // Redireciona
-        header('Location: postview.php?id=' . $id);
+        header('Location: index.php');
         exit;
     }
 }
@@ -158,14 +136,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>OmegaOn - Editar Post</title>
+    <title>OmegaOn</title>
     <link rel="stylesheet" href="Style.css?v=3.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header class="Top">
     <div class="Container">
-        <a class="title" href="index.php"><b>AlfaOn</b></a>
+        <a class="title" href="index.php"><b>OmegaOn</b></a>
         <div class="Perfil">
             <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
             <a class="Nome" href="perfview.php?id=<?php echo $seu_user['id']; ?>" <?php echo $invisivel_poslogin; ?>>
@@ -177,36 +155,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="post_creator">
     <form method="post" enctype="multipart/form-data">
-        <h2>Editar post</h2>
+        <h2>Editar perfil</h2>
         <br>
 
-        <input type="text" name="titulo" autocomplete="off"
-               placeholder="Título"
-               value="<?php echo htmlspecialchars($post_encontrado['titulo']); ?>"
-               maxlength="100" required>
+        <input type="text" name="nome" autocomplete="off"
+               placeholder="Nome da conta"
+               value="<?php echo htmlspecialchars($seu_user['nome']); ?>"
+               maxlength="20" required>
         <br><br>
 
-        <h4>Imagem do post</h4>
+        <h4>Foto do perfil</h4>
 
-        <?php if (!empty($post_encontrado['imagem'])): ?>
-            <img src="<?php echo htmlspecialchars($post_encontrado['imagem']); ?>" alt="Imagem atual" width="150"><br><br>
+        <?php if (!empty($seu_user['imagem'])): ?>
+            <img src="<?php echo htmlspecialchars($seu_user['imagem']); ?>" alt="Imagem atual" width="150"><br><br>
         <?php endif; ?>
 
         <input type="file" name="imagem" accept="image/*">
         <button type="submit" name="remove_image" value="1">Remover imagem</button>
         <br><br>
 
-        <textarea name="content" rows="6" placeholder="Texto do post (opcional)"><?php echo htmlspecialchars($post_encontrado['conteudo']); ?></textarea>
+        <textarea name="bio" rows="6" placeholder="Bio"><?php echo htmlspecialchars($seu_user['bio']); ?></textarea>
         <br><br><br>
-
-        <input type="text" name="link" autocomplete="off"
-               placeholder="Link (opcional)"
-               value="<?php echo htmlspecialchars($post_encontrado['link']); ?>"
-               maxlength="64">
-        <br><br>
 
         <button type="submit" name="salvar">Salvar alterações</button>
     </form>
 </div>
 </body>
-</html>
+</html>  

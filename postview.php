@@ -10,9 +10,29 @@ $invisivel_user ='style="display: none;"';
 
 $invisivel_popup = 'style="display: none;"';
 
-$ARQUIVO_JSON = 'json/posts.json';
-$json_data = file_get_contents($ARQUIVO_JSON);
-$posts = json_decode($json_data, true);
+$ARQUIVO_JSON_POST = 'json/posts.json';
+$json_data_post = file_get_contents($ARQUIVO_JSON_POST);
+$posts = json_decode($json_data_post, true);
+if ($posts === null) {
+    $posts  = [];
+}
+
+$ARQUIVO_JSON_USER = 'json/usuarios.json';
+$json_data_user = file_get_contents($ARQUIVO_JSON_USER);
+$usuarios = json_decode($json_data_user, true);
+if ($usuarios === null) {
+    $usuarios = [];
+}
+
+$seu_user = null;
+
+// Localiza o usuario logado
+foreach ($usuarios as $u) {
+    if ($u['nome'] === $USUARIO) {
+        $seu_user = $u;
+        break;
+    }
+}
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -28,6 +48,15 @@ if (!$post_encontrado) {
     header('Location: index.php');
     exit;
 }
+
+//usuario do post
+$post_user = null;
+foreach ($usuarios as $u) {
+    if ($u['nome'] === $post_encontrado['usuario']) {
+        $post_user = $u;
+    }
+}
+
 //comentarios 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comentar"])) {
     $comentario = $_POST["comentario"] ?? "";
@@ -94,33 +123,41 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
 
 <head>
     <meta charset="UTF-8">
-    <title>AlfaOn</title>
-    <link rel="stylesheet" href="Style.css?v=1.0">
+    <title>OmegaOn</title>
+    <link rel="stylesheet" href="Style.css?v=3.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <header class="Top">
-        <div class="Container"> <a class="title" href="index.php"><b>AlfaOn</b></a>
-            <div class="Perfil"> <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
-                <h2 class="Nome" <?php echo $invisivel_poslogin; ?>> <?php echo htmlspecialchars($USUARIO); ?> </h2>
-            </div>
+<header class="Top">
+    <div class="Container">
+        <a class="title" href="index.php"><b>OmegaOn</b></a>
+        <div class="Perfil">
+            <a class="Login-Button" href="login.php" <?php echo $invisivel_prelogin; ?>>Login</a>
+            <a class="Nome" href="perfview.php?id=<?php echo $seu_user['id']; ?>" <?php echo $invisivel_poslogin; ?>>
+                <b><?php echo htmlspecialchars($USUARIO); ?></b>
+            </a>
         </div>
-    </header>
+    </div>
+</header>
 
     <div class="post-completo">
         <div class="icos">
-            <b><?php echo htmlspecialchars($post_encontrado['usuario']); ?></b>
-            <div class="ico-actions" <?php echo $invisivel_user; ?>>
-                <a class="edit-ico" href="editpost.php?id=<?php echo $id; ?>">
-                    <img src="img/editar.png" alt="editar" width="20" height="20">
-                </a>
-                <form method="post">
-                    <button type="submit" name="delete" class="del-ico">
-                        <img src="img/delete.png" alt="excluir" width="20" height="20">
-                    </button>
-                </form>
-            </div>
+        <div class="user-info">
+            <img src="<?php echo htmlspecialchars($post_user['imagem'] ?? 'img/default-profile.png'); ?>" alt="Imagem de perfil" class="post-user-img">
+            <a href="perfview.php?id=<?php echo $post_user['id']; ?>"><b><?php echo htmlspecialchars($post_user['nome']); ?></b></a>
+        </div>
+
+        <div class="ico-actions" <?php echo $invisivel_user; ?>>
+            <a class="edit-ico" href="editpost.php?id=<?php echo $id; ?>">
+            <img src="img/editar.png" alt="editar" width="20" height="20">
+            </a>
+            <form method="post">
+            <button type="submit" name="delete" class="del-ico">
+                <img src="img/delete.png" alt="excluir" width="20" height="20">
+            </button>
+            </form>
+        </div>
         </div>
 
         <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
