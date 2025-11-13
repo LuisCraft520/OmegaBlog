@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     if (!empty($usuario['imagem']) && file_exists($usuario['imagem'])) {
                         unlink($usuario['imagem']);
                     }
-                    $usuario['imagem'] = null;
+                    $usuario['imagem'] = "img\/Perfil.jpeg";
                 }
             }
 
