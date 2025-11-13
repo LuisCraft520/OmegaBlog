@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $usuario['imagem'] = "img\/Perfil.jpeg";
                 }
             }
-
+            
             $new_array[] = $usuario;
         }
 
