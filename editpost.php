@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Salva alterações
         $json_string = json_encode($new_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        file_put_contents($ARQUIVO_JSON, $json_string);
+        file_put_contents($ARQUIVO_JSON_POST, $json_string);
 
         // Redireciona
         header('Location: postview.php?id=' . $id);

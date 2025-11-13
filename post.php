@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         array_push($posts, $new_post);
         $json_string = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-        file_put_contents($ARQUIVO_JSON, $json_string);
+        file_put_contents($ARQUIVO_JSON_POST, $json_string);
         // Redirecionando para o post após salvar
         header('Location: postview.php?id=' . $new_id);
         exit(); // Finaliza o script após o redirecionamento
