@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $json_string = json_encode($usuarios, JSON_PRETTY_PRINT);
 
-    file_put_contents($ARQUIVO_JSON, $json_string);
+    file_put_contents($ARQUIVO_JSON_USER, $json_string);
 
     $_SESSION['usuario'] = $nome;
     header('Location: editperf.php');
