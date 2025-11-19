@@ -422,9 +422,7 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    .post-completo .post-image {            
-        float: left; /* Faz a imagem flutuar à esquerda */
-        margin-right: 20px; /* Espaço entre a imagem e o texto */
+    .post-completo .post-image {                
         width: 200px; /* Defina o tamanho da imagem */
         height: auto;
     }
