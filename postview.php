@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comentar"])) {
     $comentario = $_POST["comentario"] ?? "";
     $comentario_formatado = wordwrap($comentario, 64, "\n", true);
     if ($USUARIO === null) {
-         /*erro*/
+        /*erro*/
     } elseif ($comentario !== "") {
         $new_array = [];
         foreach ($posts as $post) {
@@ -162,15 +162,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
 
         <h2><?php echo htmlspecialchars($post_encontrado['titulo']); ?></h2>
         <?php
-        if ($post_encontrado['imagem']) {
+        if ($post_encontrado['imagem'] ?? false) {
             echo "<img class='post-image' src=" . htmlspecialchars($post_encontrado['imagem']) . " alt='Imagem do post'>";  
         } ?>
 
         <p><?php echo nl2br(htmlspecialchars($post_encontrado['conteudo'])); ?></p>
         
         <?php
-        if ($post_encontrado['link']) {
-            echo '<a href=' . htmlspecialchars($post_encontrado['link']) . ' >' . htmlspecialchars($post_encontrado['link']) . '</a>';
+        if ($post_encontrado['link'] ?? false) {
+            echo '<a href=' . htmlspecialchars($post_encontrado['link']  ?? "") . ' >' . htmlspecialchars($post_encontrado['link'] ?? "") . '</a>';
         } ?>
 
         <h4 class="ERRO" <?php echo $invisivel_prelogin; ?>> Voce nao esta logado, logue em nosso site para Comentar nos posts </h4>
@@ -233,15 +233,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm-popup'])){
         ?>
     </div>
 <div class="popup" <?php echo $invisivel_popup; ?>>
-  <div class="popup-backdrop"></div>
-  <div class="popup-content">
+<div class="popup-backdrop"></div>
+<div class="popup-content">
     <h3>Confirmar exclusão</h3>
     <p>Tem certeza que deseja deletar este post?</p>
     <form class="botoes" method="post">
-      <button class="btn-confirm" name="confirm-popup">Sim, deletar</button>
-      <button class="btn-cancel">Cancelar</button>
+    <button class="btn-confirm" name="confirm-popup">Sim, deletar</button>
+    <button class="btn-cancel">Cancelar</button>
     </form>
-  </div>
+    </div>
 </div>
 </body>
 </html>
